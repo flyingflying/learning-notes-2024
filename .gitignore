@@ -152,5 +152,9 @@ cython_debug/
 .idea/
 .vscode/
 
+# 知乎 publisher
+zhihu_publisher.py
+*zhihu*
+
 # incompleted works
-01_basic_dnn/
+# 01_basic_dnn/
