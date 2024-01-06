@@ -248,21 +248,73 @@ $$
 \tag{2.8}
 $$
 
-其中, 上标 $\enspace^{(k)}$ 表示样本索引。在线性层中:
-
-(a) 对于一个线性函数来说, bias ($b^h$) 的梯度等于每一个样本输出值 ($z$) 的梯度求和;
-
-(b) 对于一个线性函数来说, weight ($\bold{w}^h$) 的梯度等于每一个样本输出值 ($z$) 的梯度值乘以输入值 ($\bold{x}$), 再求和;
-
-(c) 对于一个样本来说, 输入值 ($\bold{x}$) 的梯度等于每一个线性函数输出值 ($z$) 的梯度乘以其 weight ($\bold{w}^h$), 再求和。
-
-如果你理解上述内容, 那么 **梯度累加** ([Gradient Accumulation](https://huggingface.co/docs/accelerate/usage_guides/gradient_accumulation)) 应该就不难理解了。
+其中, 上标 $\enspace^{(k)}$ 表示样本索引。如果你理解上述内容, 那么 **梯度累加** ([Gradient Accumulation](https://huggingface.co/docs/accelerate/usage_guides/gradient_accumulation)) 应该就不难理解了。
 
 结合 2.2 节和 2.3 节, 我们可以发现, 模型参数的初始化非常重要。如果一开始隐藏层的线性函数都是一样的, 那么会出现什么问题呢? 所有参数的梯度是一致的! 这样导致的结果就是: 每一次迭代后, 所有隐藏层的线性函数依旧是一样的。MLP 网络之所以能够运转, 依靠的是隐藏层线性函数的 "差异性"。如果没有, 不仅无法拟合任意函数, 训练过程将毫无意义。关于 模型参数初始化 的内容, 打算单独写一篇博客介绍。
 
 从一系列公式中, 我们可以看出, 线性层权重的梯度和输入的数据 $\bold{x}$ 息息相关, 这也是为什么有人说大型的神经网络就是在 "背样本", 并不是在学习数据的特征。当然, 目前也没有什么特别好的理论支持。
 
-### 2.4 深层网络的意义
+### 2.4 线性层求导
+
+在上一部分中, 我们已经用 图示 + 公式 的方式说明了线性层是怎么求导的。这里, 我们用文字 + 代码的方式来描述, 加强记忆!
+
+我们知道, 线性层的本质就是 **样本** 和 **线性函数** 两两配对的结果, 如果有 $r$ 个 **样本**, $n$ 个 **线性函数**, 那么最终得到 $r \times n$ 个配对结果。同时, **样本** 和 **线性函数** 都可以用 $m$ 维向量来表示, 分别记作 $\bold{x}$ 和 $\bold{w}$ (先不考虑 bias)。向量 $\bold{x}$ 和 $\bold{w}$ 点乘的结果就是输出值。
+
+我们记输出值为 $z$, 也就是说 $z = \bold{x} \cdot \bold{w}$。那么 $z$ 对于 $\bold{x}$ 的导数是 $\bold{w}$,  $z$ 对于 $\bold{w}$ 的导数是 $\bold{x}$, 两者是相互的关系!
+
+由于是 两两配对, 那么对于一个 **样本** 来说, 每一个 **线性函数** 都有一个输出值; 同理, 对于一个 **线性函数** 来说, 每一个 **样本** 都有一个输出值。在反向过程中, 每一个输出值都有梯度。那么, 反向过程可以描述为:
+
+(1) 对于一个 **样本** 来说, 输入值 $\bold{x}$ 的梯度就是: 每一个 **线性函数**输出值 $z$ 的梯度 和 $\bold{w}$ 进行 数乘, 再将得到的所有向量进行 逐位相加 (向量求和);
+
+(2) 对于一个 **线性函数** 来说, $\bold{w}$ 的梯度等于每一个 **样本**输出值 $z$ 的梯度 和 输入值 $\bold{x}$ 进行 数乘, 再将得到的所有向量进行 逐位相加 (向量求和);
+
+(3) 对于一个 **线性函数** 来说, bias 的梯度等于每一个 **样本**输出值 $z$ 的梯度求和。
+
+上述内容可以用循环实现, 但是我们一般用 NumPy 或者 PyTorch 中提供的 **向量化编程范式** ([Array Programming](https://en.wikipedia.org/wiki/Array_programming)) 来实现, 代码如下:
+
+```python
+import torch 
+from torch import Tensor 
+
+
+def linear(input: Tensor, weight: Tensor, bias: Tensor) -> Tensor:
+    # input: [*, in_features] 每一个行向量表示一个样本
+    # weight: [out_features, in_features] 每一个行向量表示一个线性函数的权重
+    # bias: [out_features, ] 每一个元素表示一个线性函数的偏置
+    # reference: https://pytorch.org/docs/stable/generated/torch.nn.Linear.html 
+    return torch.matmul(input, weight.transpose(0, 1)) + bias  
+
+
+def linear_grad(input: Tensor, weight: Tensor, bias: Tensor, output_grad: Tensor) -> Tensor:
+    # output_grad: [*, out_features]
+    # reference: https://zhuanlan.zhihu.com/p/676212963 
+    # 对于一个线性函数而言, bias 的梯度等于所有样本 输出值梯度 之和
+    bias_grad = output_grad.flatten(start_dim=0, end_dim=-2).sum(0)
+    # 对于一个线性函数而言, weight 的梯度等于每一个样本 输出值梯度 乘以 输入值, 再求和
+    weight_grad = torch.matmul(
+        output_grad.flatten(start_dim=0, end_dim=-2).transpose(0, 1),
+        input.flatten(start_dim=0, end_dim=-2)
+    )
+    # 对于每一个样本而言, 输入 input 的梯度等于每一个线性函数 输出值梯度 乘以 其 weight, 再求和。
+    input_grad = torch.matmul(output_grad, weight)
+    return input_grad, weight_grad, bias_grad
+```
+
+最后, 通俗解释一下线性代数中的一个概念: 矩阵 可以表示 **线性变换**, 即 矩阵-向量 乘法就是对向量进行线性变换。
+
+我们知道, 向量有两个几何意义: (1) 空间中的某一点; (2) 有向线段, 由零点指向空间中的某一点。
+
+所谓 **变换**, 就是 **函数**, 将空间中的点从一个位置映射到另一个位置。而 **线性变换** 就是 映射后的每一个坐标值 可以用一个关于 映射前坐标值 的线性函数 (不带 bias) 计算得到。也就是说, 映射后点的坐标值 和 映射前点的坐标值 之间是 线性关系!
+
+至于为什么不带 bias, 因为向量表示的有向线段都是以零点为起点。
+
+如果我们将平面内的每一个点都进行映射, 就可以得到一个新的平面。由于新的平面和原来的平面之间是重叠的, 我们可以用 坐标轴变换 或者 网格变换 的方式可视化展现出来。网上很多解释都是从这个角度进行的。
+
+个人认为, 过度的形象化解释无法让人真正理解概念的含义, 只会让人觉得高深莫测, 能用一句话表达出概念的本质才是我们学习的目标!
+
+有些人会将 线性层 称为 **线性变换**。但是, 从严格的角度来说, 深度学习中的线性层不能称为 **线性变换**, 因为其有 bias 参数。在 2.2 节中我们也看到了 bias 参数是非常重要的。因此, 有些人会将 线性层 称为 投影, 但这只能表示从 高维 到 低维 的映射。总之, 没有完美的称呼方式。
+
+### 2.5 深层网络的意义
 
 上面说过, 浅层网络就能拟合任意的函数了, 为什么还要深层网络呢?
 
