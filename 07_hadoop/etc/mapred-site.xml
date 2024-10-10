@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <!-- 设置 MapReduce 的运行方式, yarn 或者 local -->
+        <name>mapreduce.framework.name</name>
+        <value>yarn</value>
+    </property>
+
+    <property>
+        <!-- 设置 MapReduce 历史服务器的通讯端口 -->
+        <name>mapreduce.jobhistory.address</name>
+        <value>localhost:10020</value>
+    </property>
+
+    <property>
+        <!-- 设置 MapReduce 历史服务器的 web 端口 -->
+        <name>mapreduce.jobhistory.webapp.address</name>
+        <value>localhost:19888</value>
+    </property>
+
+    <property>
+        <!-- 历史信息临时记录的位置 注意: 是 HDFS 路径, 不是本地路径 -->
+        <name>mapreduce.jobhistory.intermediate-done-dir</name>
+        <value>/run-data/mapred/tmp-mr-history</value>
+    </property>
+
+    <property>
+        <!-- 历史信息记录的位置 注意: 是 HDFS 路径, 不是本地路径 -->
+        <name>mapreduce.jobhistory.done-dir</name>
+        <value>/run-data/mapred/mr-history</value>
+    </property>
+
+    <!-- MapReduce HOME 路径 -->
+    <property>
+        <name>yarn.app.mapreduce.am.env</name>
+        <value>HADOOP_MAPRED_HOME=$HADOOP_HOME</value>
+    </property>
+
+    <property>
+        <name>mapreduce.map.env</name>
+        <value>HADOOP_MAPRED_HOME=$HADOOP_HOME</value>
+    </property>
+
+    <property>
+        <name>mapreduce.reduce.env</name>
+        <value>HADOOP_MAPRED_HOME=$HADOOP_HOME</value>
+    </property>
+
+</configuration>

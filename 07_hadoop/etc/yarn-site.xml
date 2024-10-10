@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<configuration>
+
+    <property>
+        <!-- Resource Manager 的位置 -->
+        <name>yarn.resourcemanager.hostname</name>
+        <value>localhost</value>
+    </property>
+
+    <property>
+        <!-- Node Manager 数据存储位置 注意: 这里是本地路径, 不是 HDFS 路径 -->
+        <name>yarn.nodemanager.local-dirs</name>
+        <value>/home/huser/yarn-data/nm-local</value>
+    </property>
+
+    <property>
+        <!-- Node Manager 日志存储位置 注意: 这里是本地路径, 不是 HDFS 路径 -->
+        <name>yarn.nodemanager.log-dirs</name>
+        <value>/home/huser/yarn-data/nm-log</value>
+    </property>
+
+    <property>
+        <!-- Node Manager 运行的附属服务 -->
+        <name>yarn.nodemanager.aux-services</name>
+        <value>mapreduce_shuffle</value>
+    </property>
+
+    <property>
+        <!-- 代理服务器的主机和端口 -->
+        <name>yarn.web-proxy.address</name>
+        <value>localhost:8089</value>
+    </property>
+
+    <property>
+        <!-- 开启日志聚合的功能 -->
+        <name>yarn.log-aggregation-enable</name>
+        <value>true</value>
+    </property>
+
+    <property>
+        <!-- YARN 日志聚合服务器的 URL (这里设置在 MapReduce 的历史服务器上) -->
+        <name>yarn.log.server.url</name>
+        <value>http://localhost:19888/jobhistory/logs</value>
+    </property>
+
+    <property>
+        <!-- YARN 日志聚合的存储路径 注意: 这里是 HDFS 路径, 不是本地路径 -->
+        <name>yarn.nodemanager.remote-app-log-dir</name>
+        <value>/run-data/yarn/logs</value>
+    </property>
+
+</configuration>

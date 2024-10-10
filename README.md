@@ -12,3 +12,4 @@
 | 03 | GPU 与 CUDA 简介 | [笔记](./04_openai_triton/01_basic_cuda.md), [知乎](https://zhuanlan.zhihu.com/p/686772546) | 2024-03-13 |
 | 04 | 分布式训练简介 | [笔记](./05_distributed_training/01_basic.md), [知乎](https://zhuanlan.zhihu.com/p/693812824) | 2024-04-22 |
 | 05 | OpenAI Triton 简介 | [笔记](./04_openai_triton/02_basic_triton.md), [知乎](https://zhuanlan.zhihu.com/p/697626885) | 2024-05-14 |
+| 06 | Hadoop 和 MapReduce 简介 | [笔记](./07_hadoop/notes/03_overview.md), [知乎](https://zhuanlan.zhihu.com/p/919744848) | 2024-10-10 |

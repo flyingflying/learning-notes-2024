@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <!-- HDFS 文件系统的网络通讯路径: hdfs 协议 localhost 服务器上的 8020 端口 -->
+        <name>fs.defaultFS</name>
+        <value>hdfs://localhost:8020</value>
+    </property>
+    <property>
+        <!-- 文件缓冲区的大小 (单位 Bytes): 131072 Bytes = 128 KB -->
+        <name>io.file.buffer.size</name>
+        <value>131072</value>
+    </property>
+
+    <!-- START 回收站配置 -->
+    <!-- 
+        每 fs.trash.checkpoint.interval 分钟检查一次回收站, 
+        如果删除的文件时间超过了 fs.trash.interval 分钟, 就从回收站中彻底删除。
+        回收站位置在 HDFS 的 .Trash 文件夹下面 (使用 rm 指令时会显示位置的) 
+    -->
+    <property>
+        <name>fs.trash.interval</name>
+        <value>1440</value>
+    </property>
+    <property>
+        <name>fs.trash.checkpoint.interval</name>
+        <value>120</value>
+    </property>
+    <!-- END 回收站配置 -->
+
+    <property>
+        <!-- HDFS WEB 默认的用户是 dr.who, 如果希望在 WEB 上面上传文件, 需要改成 huser -->
+        <name>hadoop.http.staticuser.user</name>
+        <value>dr.who</value>
+    </property>
+</configuration>

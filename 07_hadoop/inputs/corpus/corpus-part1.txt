@@ -1,0 +1,4 @@
+hadoop mapreduce hive
+hadoop yarn spark flink
+hadoop hdfs hbase
+mapreduce mapreduce

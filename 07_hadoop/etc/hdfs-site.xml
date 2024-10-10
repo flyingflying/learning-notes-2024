@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+    <property>
+        <!-- NameNode 管理的 DataNode 列表 -->
+        <name>dfs.namenode.hosts</name>
+        <value>localhost</value>
+    </property>
+    <property>
+        <!-- NameNode 元数据的存储位置, `hdfs namenode -format` 指令会初始化此空间 -->
+        <name>dfs.namenode.name.dir</name>
+        <value>/home/huser/hdfs-data/nn</value>
+    </property>
+    <property>
+        <!-- DataNode 存放数据的位置, 不同的 DataNode 可以配置不同的文件夹位置 -->
+        <name>dfs.datanode.data.dir</name>
+        <value>/home/huser/hdfs-data/dn</value>
+        <description>DataNode 存放数据的位置</description>
+    </property>
+    <property>
+        <!-- HDFS 文件的单个 block 大小: 134217728 Bytes = 128 MB -->
+        <name>dfs.blocksize</name>
+        <value>134217728</value>
+    </property>
+    <property>
+        <!-- 每一个文件的存储个数, 默认为 3, 单节点就修改成 1 -->
+        <name>dfs.replication</name>
+        <value>1</value>
+    </property>
+    <property>
+        <!-- HDFS 创建文件的默认权限。在 HDFS 文件系统中, 启动 HDFS 的用户为 supergroup, 拥有最高权限 -->
+        <name>dfs.datanode.data.dir.perm</name>
+        <value>700</value>
+    </property>
+    <property>
+        <!-- NameNode 处理的并发线程数 -->
+        <name>dfs.namenode.handler.count</name>
+        <value>12</value>
+    </property>
+
+    <!-- START NameNode 元数据合并设置 -->
+    <!-- 
+        每 check.period 秒检查一次, 如果距离上次合并时间达到了 period 秒, 
+        或者文件操作次数达到了 txns 次, 那么就执行新一轮的合并操作 
+    -->
+    <property>
+        <name>dfs.namenode.checkpoint.period</name>
+        <value>3600</value>
+    </property>
+    <property>
+        <name>dfs.namenode.checkpoint.txns</name>
+        <value>1000000</value>
+    </property>
+    <property>
+        <name>dfs.namenode.checkpoint.check.period</name>
+        <value>60</value>
+    </property>
+    <!-- END NameNode 元数据合并设置 -->
+
+    <property>
+        <!-- HDFS WEB 管理系统的地址, 启动后可以访问 -->
+        <name>dfs.http.address</name>
+        <value>localhost:9870</value>
+    </property>
+    <property>
+        <!-- secondary namenode 的地址 (也是可以访问的) -->
+        <name>dfs.namenode.secondary.http-address</name>
+        <value>localhost:50090</value>
+    </property>
+</configuration>
