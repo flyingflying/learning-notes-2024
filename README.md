@@ -13,3 +13,4 @@
 | 04 | 分布式训练简介 | [笔记](./05_distributed_training/01_basic.md), [知乎](https://zhuanlan.zhihu.com/p/693812824) | 2024-04-22 |
 | 05 | OpenAI Triton 简介 | [笔记](./04_openai_triton/02_basic_triton.md), [知乎](https://zhuanlan.zhihu.com/p/697626885) | 2024-05-14 |
 | 06 | Hadoop 和 MapReduce 简介 | [笔记](./07_hadoop/notes/03_overview.md), [知乎](https://zhuanlan.zhihu.com/p/919744848) | 2024-10-10 |
+| 07 | PySpark RDD 简介 | [笔记](./08_pyspark/notes/01_rdd.md), [知乎](https://zhuanlan.zhihu.com/p/17821898772) | 2025-01-11 |
