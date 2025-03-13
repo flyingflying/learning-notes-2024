@@ -14,3 +14,4 @@
 | 05 | OpenAI Triton 简介 | [笔记](./04_openai_triton/02_basic_triton.md), [知乎](https://zhuanlan.zhihu.com/p/697626885) | 2024-05-14 |
 | 06 | Hadoop 和 MapReduce 简介 | [笔记](./07_hadoop/notes/03_overview.md), [知乎](https://zhuanlan.zhihu.com/p/919744848) | 2024-10-10 |
 | 07 | PySpark RDD 简介 | [笔记](./08_pyspark/notes/01_rdd.md), [知乎](https://zhuanlan.zhihu.com/p/17821898772) | 2025-01-11 |
+| 08 | Decoder-Only LLM 概述 | [笔记](./09_llm/01_basic.md), [知乎](https://zhuanlan.zhihu.com/p/30105154418) | 2025-03-14 |

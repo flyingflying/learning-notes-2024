@@ -162,4 +162,6 @@ zhihu_publisher.py
 # incompleted works
 # 01_basic_dnn/
 # 02_basic_cnn/
+00_basic_math/
+03_normalization/
 sample_codes/
