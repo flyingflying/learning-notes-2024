@@ -16,3 +16,4 @@
 | 07 | PySpark RDD 简介 | [笔记](./08_pyspark/notes/01_rdd.md), [知乎](https://zhuanlan.zhihu.com/p/17821898772) | 2025-01-11 |
 | 08 | Decoder-Only LLM 概述 | [笔记](./09_llm/01_basic.md), [知乎](https://zhuanlan.zhihu.com/p/30105154418) | 2025-03-14 |
 | 09 | 数学漫谈 (一) 十进制与二进制数字系统 | [笔记](./06_model_quantization/01_number_system.md), [知乎](https://zhuanlan.zhihu.com/p/1893653279222776235) | 2025-04-10 |
+| 10 | 数学漫谈 (二) 多维数组 与 NumPy | [笔记](./10_numpy/01_overview.md), [知乎](https://zhuanlan.zhihu.com/p/1928479883970974208) | 2025-07-15 |
