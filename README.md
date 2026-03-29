@@ -6,7 +6,7 @@
 ## 笔记目录
 
 | 编号 | 名称 | 发布地址 | 完成时间 |
-|:----:|:----:|:----:|:----:|
+| :--: | -- | :--: | :--: |
 | 01 | DNN 基础知识 | [笔记](./01_basic_dnn/basic_dnn.md), [知乎](https://zhuanlan.zhihu.com/p/676212963) | 2024-01-05 |
 | 02 | 转置卷积 与 ZFNet 可视化 | [笔记](./02_basic_cnn/01_transposed_conv.md), [知乎](https://zhuanlan.zhihu.com/p/679375638) | 2024-01-23 |
 | 03 | GPU 与 CUDA 简介 | [笔记](./04_openai_triton/01_basic_cuda.md), [知乎](https://zhuanlan.zhihu.com/p/686772546) | 2024-03-13 |
@@ -17,3 +17,4 @@
 | 08 | Decoder-Only LLM 概述 | [笔记](./09_llm/01_basic.md), [知乎](https://zhuanlan.zhihu.com/p/30105154418) | 2025-03-14 |
 | 09 | 数学漫谈 (一) 十进制与二进制数字系统 | [笔记](./06_model_quantization/01_number_system.md), [知乎](https://zhuanlan.zhihu.com/p/1893653279222776235) | 2025-04-10 |
 | 10 | 数学漫谈 (二) 多维数组 与 NumPy | [笔记](./10_numpy/01_overview.md), [知乎](https://zhuanlan.zhihu.com/p/1928479883970974208) | 2025-07-15 |
+| 11 | SQL 系列 (一) 基础数据类型 | [笔记](./11_mysql/01_data_types/01_basic.md), [知乎](https://zhuanlan.zhihu.com/p/2021616017365845301) | 2026-03-29 |
