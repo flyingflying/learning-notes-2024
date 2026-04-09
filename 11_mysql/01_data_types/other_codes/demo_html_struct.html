@@ -1,0 +1,46 @@
+
+<div id="main">
+    hello, world
+    <a href="https://www.baidu.com">搜索链接</a>
+    你好世界
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+
+
+curElement = document.getElementById("main");
+childNodes = curElement.childNodes;
+for (let i = 0; i < childNodes.length; i++) {
+    childNode = childNodes[i];
+    if (childNode.nodeName == "#text") {
+        console.log(
+            "当前节点是 Text 节点; 文本内容是: ", 
+            JSON.stringify(childNode.data)
+        );
+    } else {
+        console.log(
+            "当前节点是 Element 节点; 标签类型是: ", 
+            curElement.nodeName, 
+            "; 属性个数是: ", 
+            childNode.attributes.length
+        );
+    }
+}
+
+
+</script>
+
+
+
+
+
+
+
