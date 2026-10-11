@@ -21,3 +21,4 @@
 | 12 | Python 开发 (一) 实现简单的 JSON 库 | [笔记](./11_mysql/01_data_types/02_json_parser.md), [知乎](https://zhuanlan.zhihu.com/p/2024258311281713893) | 2026-04-05 |
 | 13 | SQL 系列 (二) XML 和 JSON 数据类型 | [笔记](./11_mysql/01_data_types/03_xml_json_types.md), [知乎](https://zhuanlan.zhihu.com/p/2025713525847258481) | 2026-04-09 |
 | 14 | SQL 系列 (三) "集合" 视角下的 SQL 语言 | [笔记](./11_mysql/02_sql_language/01_data_query_language.md), [知乎](https://zhuanlan.zhihu.com/p/2042418652683788381) | 2026-05-26 |
+| 15 | C/C++ 开发(一) C语言内存模型 | [笔记](./14_CCPP/notes/01_memory_model.md), [知乎](https://zhuanlan.zhihu.com/p/2092729092831450356) | 2026-10-11 |
